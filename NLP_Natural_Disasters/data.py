@@ -29,6 +29,13 @@ def lemmatize_text(text):
     return ' '.join([lemmatizer.lemmatize(word) for word in text])
 
 
+def remove_repeated_char(words):
+    for w in words:
+        if re.search(r'(.)\1{2}', w):
+            words.remove(w)
+    return words
+
+
 def clean_data(df, drop_keyword=True):
     '''
     Returns a cleaned data
@@ -46,6 +53,7 @@ def clean_data(df, drop_keyword=True):
     clean_df['text'] = clean_df['text'].apply(lambda text: text.strip()) # Remove useless spaces
 
     clean_df['text'] = clean_df['text'].apply(remove_stopwords) # Remove stopwords and return a list of words
+    clean_df['text'] = clean_df['text'].apply(remove_repeated_char) # Remove words with 3 or more repetition of the same character
     clean_df['text'] = clean_df['text'].apply(lemmatize_text) # Return a lemmatized text (change words to their roots)
 
     return clean_df
@@ -65,6 +73,4 @@ def get_data(addon=False):
 
 if __name__ == "__main__":
     df = get_data()
-    print(df.shape)
-    df = get_data(addon=True)
-    print(df.shape)
+    print(df)
