@@ -72,11 +72,14 @@ def clean_data(df, drop_keyword=True):
     return clean_df
 
 
-def get_data(addon=False):
+def get_data(addon=False, test=False):
     '''
     Returns the training data from the Kaggle Challenge
     with an optional parameter to also use additional data from another source
     '''
+    if test==True:
+        df = pd.read_csv(os.path.abspath(TEST_DATA_PATH))
+        return df
     df = pd.read_csv(os.path.abspath(TRAIN_DATA_PATH))
     if addon == True:
         df_addon = pd.read_csv(ADDON_DATA_PATH)
