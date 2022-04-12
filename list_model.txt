@@ -1,0 +1,39 @@
+Model 1 : CNN (Conv1D,test=0.2)
+  - structure :
+      Conv1D(64, 8, activation ='relu')
+      Dense(32, activation='relu')
+      Dense(16, activation='relu')
+      Dense(1, activation='sigmoid')
+      'optimizer=Adam'
+  - F1_score : 0.8552
+  - val_f1 : 0.7767
+
+Model 2 : RNN (LSTM/rmsprop, test=0.2)
+  - structure :
+      LSTM(20)
+      Dense(10, activation='relu')
+      Dense(1, activation='sigmoid')
+      optimizer='rmsprop'
+  - F1_score : 0.8809
+  - val_f1 : 0.7422
+
+Model 3 : RNN (LSTM/Adam, test=0.2)
+  - structure :
+      LSTM(20)
+      Dense(10, activation='relu')
+      Dense(1, activation='sigmoid')
+      optimizer='Adam'
+  - F1_score :0.9364
+  - val_f1 :0.7373
+
+Model 4 : RNN (LSTM/Adam/test=0.3)
+  - structure :
+      LSTM(256)
+      LSTM(128)
+      LSTM(64)
+      LSTM(32)
+      Dense(256, activation = 'relu')
+      Dense(16, activation = 'relu')
+      Dense(1, activation = 'sigmoid')
+  - F1_score :0.9576
+  - val_f1 :0.7665

@@ -1,4 +1,3 @@
-from unittest.util import _MAX_LENGTH
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 #from tensorflow.keras.models import Sequential
@@ -15,20 +14,20 @@ import numpy as np
 from numpy import array
 import pandas as pd
 
-_MAX_LENGTH = 25
+max_long = 25
 
 def create_list(serie):
     text = serie.tolist()
     return text
 
-def token_ize():
+def token_ize(text):
     token = Tokenizer()
     return token
 
 def token_tweet(text, token):
     token.fit_on_texts(text)
     encoded_text = token.texts_to_sequences(text)
-    X = pad_sequences(encoded_text, maxlen=_MAX_LENGTH, padding='post')
+    X = pad_sequences(encoded_text, maxlen=max_long, padding='post')
     return X
 
 def voc_token(token):
@@ -41,7 +40,8 @@ def dict_token(token):
 
 def glove_vector(token):
     glove_vectors = dict()
-    file = open('../glove/glove.twitter.27B.200d.txt', encoding='utf-8')
+    #attention path à changer en fonction de l'emplacement du fichier.txt
+    file = open('/content/gdrive/My Drive/glove.twitter.27B.200d.txt', encoding='utf-8')
     for line in file:
         values = line.split()
         word = values[0]
@@ -50,7 +50,7 @@ def glove_vector(token):
     file.close()
     word_vector_matrix = np.zeros((voc_token(token),200))
     to_delete = []
-    for word, index in dict_token(token):
+    for index, word in dict_token(token):
         vector = glove_vectors.get(word)
         if vector is not None:
             word_vector_matrix[index] = vector
