@@ -43,13 +43,15 @@ def remove_rare_words(df, feature, rarity=1):
     df[feature] = df[feature].apply(lambda text: ' '.join(w for w in text.split() if w not in rare_words)) # Reconstruct sentence without rare words
     return df
 
-def clean_data(df, drop_keyword=True):
+def clean_data(df, drop_keyword=True, drop_location=True, drop_rare=True):
     '''
     Returns a cleaned data
     Default behavior is to drop "keyword" columns
     '''
+    clean_df = df.copy()
 
-    clean_df = df.drop(columns=['location'])
+    if drop_location == True:
+        clean_df = clean_df.drop(columns=['location'])
     if drop_keyword == True:
         clean_df = clean_df.drop(columns=['keyword'])
 
@@ -61,7 +63,8 @@ def clean_data(df, drop_keyword=True):
     clean_df['text'] = clean_df['text'].apply(lambda text: text.lower()) # Remove uppercase
     clean_df['text'] = clean_df['text'].apply(lambda text: text.strip()) # Remove useless spaces
 
-    clean_df = remove_rare_words(clean_df, 'text') # Remove uncommon words
+    if drop_rare == True:
+        clean_df = remove_rare_words(clean_df, 'text') # Remove uncommon words
 
     clean_df['text'] = clean_df['text'].apply(remove_stopwords) # Remove stopwords and return a list of words
     clean_df['text'] = clean_df['text'].apply(remove_repeated_char) # Remove words with 3 or more repetition of the same character
