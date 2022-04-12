@@ -1,1 +1,1 @@
-worker: uvicorn api.fast:app --reload --host=0.0.0.0 --port=${PORT:-5000}
+web: uvicorn api.fast:app --reload --host=0.0.0.0 --port=${PORT:-5000}
