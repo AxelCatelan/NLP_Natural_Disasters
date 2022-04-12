@@ -1,1 +1,1 @@
-web: uvicorn api.fast:app --reload
+worker: uvicorn api.fast:app --reload

@@ -4,9 +4,6 @@ import joblib
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-#from NLP_Natural_Disasters.encoders import TextTokenization
-#from NLP_Natural_Disasters.trainer import Trainer_Test
-
 app = FastAPI()
 
 app.add_middleware(
