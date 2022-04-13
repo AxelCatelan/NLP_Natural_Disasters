@@ -54,8 +54,8 @@ pypi_test:
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
 
-
-##### Prediction API - - - - - - - - - - - - - - - - - - - - - - - - -
-
-run_api:
-	uvicorn api.fast:app --reload
+# ----------------------------------
+#      FRONTEND DEPLOYMENT
+# ----------------------------------
+streamlit:
+	-@streamlit run front/app.py
