@@ -9,7 +9,7 @@ numpy
 pandas
 scikit-learn
 nltk
-tensorflow-cpu
+#tensorflow-cpu
 
 # tests/linter
 black
