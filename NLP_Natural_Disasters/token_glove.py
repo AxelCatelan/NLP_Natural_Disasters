@@ -1,5 +1,6 @@
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import joblib
 #from tensorflow.keras.models import Sequential
 #from tensorflow.keras.layers import Dense, Flatten, Embedding, Activation, Dropout, LSTM
 #from tensorflow.keras.layers import Conv1D, MaxPooling1D, GlobalMaxPooling1D
@@ -26,6 +27,9 @@ def token_ize(text):
 
 def token_tweet(text, token):
     token.fit_on_texts(text)
+    #ici enregistrer l'objet token
+    #token.save('/content/gdrive/My Drive/token_camille_test')
+    joblib.dump(token, '/content/gdrive/My Drive/token_cam_test.joblib')
     encoded_text = token.texts_to_sequences(text)
     X = pad_sequences(encoded_text, maxlen=max_long, padding='post')
     return X
