@@ -18,7 +18,7 @@ def get_tokenizer():
     """
     Return tokenizer, only executed once to load then returns cached tokenizer
     """
-    tokenizer = joblib.load('token_cam_test.joblib')
+    tokenizer = joblib.load('token_cam_test2.joblib')
     return tokenizer
 
 
@@ -32,11 +32,11 @@ def get_bow():
 
 
 @st.cache(allow_output_mutation=True)
-def get_RNN_model():
+def get_cnn_model():
     """
-    Return RNN Model, only executed once to load then returns cached model to avoid long prediction time
+    Return CNN Model, only executed once to load then returns cached model to avoid long prediction time
     """
-    model = load_model('RNN_keras_camille1', custom_objects={'f1_m': f1_m})
+    model = load_model('CNN_camille_version_finale')
     return model
 
 
@@ -49,9 +49,9 @@ def get_classification_model():
     return lda_model
 
 
-def preprocessing_tweet_rnn(tweet):
+def preprocessing_tweet_cnn(tweet):
     """
-    Preprocess a string for RNN : Clean the data, then tokenize and pad it
+    Preprocess a string for CNN : Clean the data, then tokenize and pad it
     """
 
     tweet_dict = {'text': [tweet,],} # Put the text in dict form to be compatible with our data cleaning format
@@ -70,7 +70,7 @@ def preprocessing_tweet_rnn(tweet):
 
 def preprocessing_tweet_lda(tweet):
     """
-    Preprocess a string for RNN : Clean the data, then tokenize and pad it
+    Preprocess a string for CNN : Clean the data, then tokenize and pad it
     """
 
     tweet_dict = {'text': [tweet,],} # Put the text in dict form to be compatible with our data cleaning format
@@ -87,13 +87,13 @@ def preprocessing_tweet_lda(tweet):
     return sentence_bowed
 
 
-def get_RNN_predict(tweet):
+def get_cnn_predict(tweet):
     """
-    Takes a string and run it through preprocessing, then through the RNN model to return a prediction
+    Takes a string and run it through preprocessing, then through the CNN model to return a prediction
     """
-    padded_text = preprocessing_tweet_rnn(tweet)
+    padded_text = preprocessing_tweet_cnn(tweet)
     try:
-        y_pred = RNNModel.predict(padded_text)
+        y_pred = CNNModel.predict(padded_text)
     except:
         return 0
     return round(y_pred[0][0])
@@ -113,7 +113,7 @@ def get_classification_predict(tweet):
 # to have the cached version available afterwards
 tokenizer = get_tokenizer()
 bow = get_bow()
-RNNModel = get_RNN_model()
+CNNModel = get_cnn_model()
 LDAModel = get_classification_model()
 
 
@@ -126,17 +126,16 @@ with open('front/style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 '''
-# NLP Natural Disasters
+# Analyse your Tweets
 '''
 
 tweet = st.text_area(label="", max_chars=280)
 
 if tweet != '':
     with st.spinner('Analysing...'):
-        result = get_RNN_predict(tweet)
+        result = get_cnn_predict(tweet)
     if result == 0:
         st.success('''## All good👍''')
-        st.balloons()
     else:
         st.error('''## This is a disaster''')
         get_classification_predict(tweet)
