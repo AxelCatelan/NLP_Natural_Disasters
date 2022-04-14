@@ -9,7 +9,8 @@ numpy
 pandas
 scikit-learn
 nltk
-#tensorflow-cpu
+tensorflow
+gensim
 
 # tests/linter
 black

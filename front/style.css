@@ -1,0 +1,11 @@
+.stApp {
+  /* background-image: url("https://images.unsplash.com/photo-1519071538632-dd0814a805c7"); */
+  /* background-image: url("https://images.unsplash.com/photo-1504344977555-430929e2c4ba"); */
+  /* background-image: url("https://cdn.pixabay.com/photo/2013/02/14/14/54/key-west-81664_960_720.jpg"); */
+  background-image: url("https://i.ibb.co/vB1sn8z/test-image.jpg");
+  background-size: cover;
+}
+
+img {
+  opacity: 0.2;
+}
