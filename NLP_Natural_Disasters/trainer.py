@@ -1,8 +1,6 @@
 import pandas as pd
 import joblib
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import f1_score
-from sklearn.model_selection import train_test_split
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras import layers, Sequential
 
@@ -57,5 +55,5 @@ if __name__ == "__main__":
     X = df[['text']]
     y = df['target']
     trainer = Trainer_Test(X=X, y=y)
-    trainer.run()
+    trainer.set_pipeline()
     trainer.save_model_locally()
