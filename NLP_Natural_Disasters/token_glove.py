@@ -32,7 +32,7 @@ def token_tweet(text, token):
     joblib.dump(token, '/content/gdrive/My Drive/token_cam_test.joblib')
     encoded_text = token.texts_to_sequences(text)
     X = pad_sequences(encoded_text, maxlen=max_long, padding='post')
-    return X
+    return X, token
 
 def voc_token(token):
     vocab_size = len(token.word_index) + 1
