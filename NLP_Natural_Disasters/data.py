@@ -70,7 +70,7 @@ def clean_data(df, drop_keyword=True, drop_location=True, drop_rare=True):
     clean_df['text'] = clean_df['text'].apply(remove_repeated_char) # Remove words with 3 or more repetition of the same character
     clean_df['text'] = clean_df['text'].apply(lemmatize_text) # Return a lemmatized text (change words to their roots)
 
-    clean_df = clean_df[clean_df['text'] != ''] # Remove rows that ended up empty
+    #clean_df = clean_df[clean_df['text'] != ''] # Remove rows that ended up empty
 
     return clean_df
 
